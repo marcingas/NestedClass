@@ -5,17 +5,27 @@ public class Meal {
     private Item burger;
     private Item drink;
     private Item side;
+    private double conversionRate;
 
     public Meal() {
+        this(1);
+    }
+
+    public Meal(double conversionRate) {
+        this.conversionRate = conversionRate;
         burger = new Item("regular", "burger");
         drink = new Item("coke","drink", 1.5);
         System.out.println(drink.name);
         side = new Item("fries","side",2.0);
     }
+    public double getTotal(){
+        double total = burger.price + drink.price + side.price;
+        return Item.getPRice(total,conversionRate);
+    }
 
     @Override
     public String toString() {
-        return "%s%n%s%n%s%n".formatted(burger,drink,side);
+        return "%s%n%s%n%s%n%26s$%.2f".formatted(burger,drink,side,"Total due: ", getTotal());
 
     }
 
@@ -36,7 +46,10 @@ public class Meal {
 
         @Override
         public String toString() {
-            return "%10s%15s $%.2f".formatted(type, name, price);
+            return "%10s%15s $%.2f".formatted(type, name, getPRice(price,conversionRate));
+        }
+        private static double getPRice(double price, double rate){
+            return price * rate;
         }
     }
 }
