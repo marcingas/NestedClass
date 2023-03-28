@@ -42,12 +42,13 @@ public class Main {
     }
 
     public static void addPigLatinName(List<? extends StoreEmployee> list) {
+        String lastName = "Piggy";
         class DecoratedEmployee extends StoreEmployee implements Comparable<DecoratedEmployee> {
             private String pigLatinName;
             private Employee originalInstance;
 
             public DecoratedEmployee(String pigLatinName, Employee originalInstance) {
-                this.pigLatinName = pigLatinName;
+                this.pigLatinName = pigLatinName + " " + lastName;
                 this.originalInstance = originalInstance;
             }
 
@@ -69,7 +70,7 @@ public class Main {
         }
         newList.sort(null);
         for (var dEmployee : newList) {
-            System.out.println(dEmployee);
+            System.out.println(dEmployee.originalInstance.getName() + ": " + dEmployee.pigLatinName);
         }
     }
 }
